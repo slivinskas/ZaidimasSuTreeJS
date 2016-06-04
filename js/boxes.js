@@ -3,6 +3,12 @@ var geometry, material, mesh;
 var boxes = Array();
 var meshes = Array();
 
+var arrow = { left: 37, up: 38, right: 39, down: 40 };
+var delta = 0.05;
+var xAxis = new THREE.Vector3(1,0,0);
+var yAxis = new THREE.Vector3(0,1,0);
+var speed = 1;
+
 init();
 animate();
 
@@ -37,13 +43,48 @@ function init() {
         meshes[i].position.set( randomRange(-3,3)*200, randomRange(-3,3)*300, randomRange(-3,3)*300 );
     }
 
+    camera.position.x = 1;
+    camera.position.y = 1;
+    camera.position.z = 1;
+    camera.lookAt(new THREE.Vector3(0,0,0));
+
+
 
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
 
+
+
 }
+
+
+window.addEventListener('keydown', function(event) {
+  event.preventDefault();
+  switch (event.keyCode) {
+    case arrow.left:
+      //    alert("Yra");
+      camera.translateOnAxis(xAxis*speed, -delta);
+      break;
+    case arrow.up:
+         // alert("Yra");
+      camera.translateOnAxis(yAxis*speed, delta);
+      break;
+    case arrow.right:
+     //     alert("Yra");
+      camera.translateOnAxis(xAxis*speed, delta);
+      break;
+    case arrow.down:
+   //       alert("Yra");
+      camera.translateOnAxis(yAxis*speed, -delta);
+      break;
+  }
+});
+
+
+
+
 
 function animate() {
 
