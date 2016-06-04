@@ -148,13 +148,6 @@ var boxColors = [129146,7365362,2427964,16412016];
 				document.addEventListener( 'keydown', onKeyDown, false );
 				document.addEventListener( 'keyup', onKeyUp, false );
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
-                // bet koks elementas   ====================================================================================================
-
-                    var loader = new THREE.JSONLoader();
-                    loader.load('./Eksportai/violin.json', function(geometry) {
-                        mesh = new THREE.Mesh(geometry);
-                        scene.add(mesh);
-                    });
 
 				// floor  =============================================================================================================
                 var texture = new THREE.TextureLoader().load( "img/grass-free-texture.jpg" );
