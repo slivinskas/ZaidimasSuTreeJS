@@ -1,4 +1,6 @@
 var camera, scene, renderer;
+var boxColors = [129146,7365362,2427964,16412016];
+    mainColor = 0;
 			var geometry, material, mesh;
 			var controls;
 			var objects = [];
@@ -94,6 +96,7 @@ var camera, scene, renderer;
 						case 32: // space
 							if ( canJump === true ) velocity.y += 350;
 							canJump = false;
+                           // scene.getObjectByName( "kubas1" ).up.y += 10;
 							break;
 					}
 
@@ -103,8 +106,21 @@ var camera, scene, renderer;
                     var cameraLocal = new THREE.Vector3( 0, 0, 0 );
                     var cameraInWorld = cameraLocal.applyMatrix4( camera.matrixWorld );
 
-                    console.log("\n Kamera: ");
-                    console.log(cameraInWorld);
+                    var raycaster = new THREE.Raycaster();
+                    raycaster.setFromCamera( cameraInWorld, camera );
+                    // calculate objects intersecting the picking ray
+                    var intersects = raycaster.intersectObjects( objects );
+
+                    for ( var inter = 0; inter < intersects.length; inter++ ) {
+                        scene.remove( intersects[ inter ].object);
+                    }
+
+                    renderer.render( scene, camera );
+
+
+
+               //     console.log("\n Kamera: ");
+                  //  console.log(cameraInWorld);
 
                     //======================= Collision END ======================================================
 
@@ -134,15 +150,11 @@ var camera, scene, renderer;
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
                 // bet koks elementas   ====================================================================================================
 
-
-
                     var loader = new THREE.JSONLoader();
                     loader.load('./Eksportai/violin.json', function(geometry) {
                         mesh = new THREE.Mesh(geometry);
                         scene.add(mesh);
                     });
-
-
 
 				// floor  =============================================================================================================
                 var texture = new THREE.TextureLoader().load( "img/grass-free-texture.jpg" );
@@ -155,18 +167,11 @@ var camera, scene, renderer;
 					vertex.y += Math.random() * 2;
 					vertex.z += Math.random() * 20 - 10;
 				}
-				/*for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
-					var face = geometry.faces[ i ];
-					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				}/**/
 
                 material = new THREE.MeshBasicMaterial({map: texture}),
 				mesh = new THREE.Mesh( geometry, material );
 
 				scene.add( mesh );
-
 
 				// objects   =============================================================================================================
 
@@ -176,34 +181,41 @@ var camera, scene, renderer;
                         mesh.scale.set( 10, 10, 10 );
                         mesh.position.y = 150;
                         mesh.position.x = 0;
+                        mesh.color = randomHex();
                         scene.add(mesh);
                     });
 
-
-
 				geometry = new THREE.BoxGeometry( 20, 20, 20 );
 
-                material = new THREE.MeshBasicMaterial({
-                    color: randomHex()
+                var matOfBox = Array();
+
+                matOfBox[0] = new THREE.MeshBasicMaterial({
+                    color: boxColors[0]
                 });
+                for(var colorNo = 1; colorNo < 3; colorNo++){
+                    matOfBox[colorNo] = matOfBox[0].clone();
+                    matOfBox[colorNo].color = boxColors[colorNo];
+                }
+
 
 				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
 					var face = geometry.faces[ i ];
 				}
 
 
-				for ( var i = 0; i < 100; i ++ ) {
+				for ( var i = 0; i < 40; i ++ ) {
 				//	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
-                    var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.floor( Math.random() * 20 - 10 ) * 20;
-					mesh.position.y = Math.floor( Math.random() * 20 ) * 20 + 10;
-					mesh.position.z = Math.floor( Math.random() * 20 - 10 ) * 20;
+                    var mesh = new THREE.Mesh( geometry, matOfBox[randomRange(0,3)] );
+					mesh.position.x = Math.floor( Math.random() * 40 - 10 ) * 20;
+					mesh.position.y = 10; //Math.floor( Math.random() * 20 ) * 20 + 10;
+					mesh.position.z = Math.floor( Math.random() * 40 - 10 ) * 20;
                     mesh.rotation.y = -Math.PI/5;
 					scene.add( mesh );
 			//		material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
+                    mesh.name = "kubas"+i.toString();
 					objects.push( mesh );
-				}
 
+				}
 
 				//
 				renderer = new THREE.WebGLRenderer();
