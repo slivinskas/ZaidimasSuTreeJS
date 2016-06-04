@@ -96,34 +96,18 @@ var camera, scene, renderer;
 							canJump = false;
 							break;
 					}
-                    /*
-                    // Colision ====================================
+
+                    //======================== Colision START ====================================
                     var objectsCount = objects.length;
-                    var originPoint = camera.position.clone();
-                    for (var vertexIndex = 0; vertexIndex < MovingCube.geometry.vertices.length; vertexIndex++)
-                    {
-                        var localVertex = objects.geometry.vertices[vertexIndex].clone();
-                        var globalVertex = localVertex.applyMatrix4( objects.matrix );
-		                var directionVector = globalVertex.sub( objects.position );
 
+                    var cameraLocal = new THREE.Vector3( 0, 0, 0 );
+                    var cameraInWorld = cameraLocal.applyMatrix4( camera.matrixWorld );
 
+                    console.log("\n Kamera: ");
+                    console.log(cameraInWorld);
 
-                        var localVertex = MovingCube.geometry.vertices[vertexIndex].clone();
-                        var globalVertex = localVertex.applyMatrix4( MovingCube.matrix );
-                        var directionVector = globalVertex.sub( MovingCube.position );
+                    //======================= Collision END ======================================================
 
-                        var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
-                        var collisionResults = ray.intersectObjects( collidableMeshList );
-                        if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() ) {
-                            alert(" Hit ");
-                        }
-
-
-                        for(var objNo = 0; objNo < objectsCount; objNo++){
-
-                        }
-
-                    }/**/
 				};
 				var onKeyUp = function ( event ) {
 					switch( event.keyCode ) {
@@ -171,15 +155,14 @@ var camera, scene, renderer;
 					vertex.y += Math.random() * 2;
 					vertex.z += Math.random() * 20 - 10;
 				}
-				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
+				/*for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
 					var face = geometry.faces[ i ];
 					face.vertexColors[ 0 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 					face.vertexColors[ 1 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
 					face.vertexColors[ 2 ] = new THREE.Color().setHSL( Math.random() * 0.3 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
-				}
+				}/**/
 
                 material = new THREE.MeshBasicMaterial({map: texture}),
-				//material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors } );
 				mesh = new THREE.Mesh( geometry, material );
 
 				scene.add( mesh );
