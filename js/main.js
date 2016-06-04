@@ -26,4 +26,4 @@ function Table  (){
     return tabl;
 };
 
-document.getElementById("conteiner").appendChild(new Table());
+//document.getElementById("conteiner").appendChild(new Table());
