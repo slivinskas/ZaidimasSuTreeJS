@@ -25,12 +25,15 @@ function init() {
     boxes[1]  = new THREE.BoxGeometry(200, 200, 200);
     boxes[2]  = new THREE.BoxGeometry(200, 200, 200);
 
+    texture = THREE.ImageUtils.loadTexture('img/grass-free-texture.jpg', {}, function() {
+        renderer.render(scene);
+    }),
 
-
-    material = new THREE.MeshBasicMaterial({
+    material = new THREE.MeshBasicMaterial({map: texture});
+  /*  material = new THREE.MeshBasicMaterial({
         color: randomHex(),
-        wireframe: false
-    });
+      //  wireframe: false
+    });/**/
 
     mesh = new THREE.Mesh(geometry, material);
 
@@ -58,29 +61,6 @@ function init() {
 
 
 }
-
-
-window.addEventListener('keydown', function(event) {
-  event.preventDefault();
-  switch (event.keyCode) {
-    case arrow.left:
-      //    alert("Yra");
-      camera.translateOnAxis(xAxis*speed, -delta);
-      break;
-    case arrow.up:
-         // alert("Yra");
-      camera.translateOnAxis(yAxis*speed, delta);
-      break;
-    case arrow.right:
-     //     alert("Yra");
-      camera.translateOnAxis(xAxis*speed, delta);
-      break;
-    case arrow.down:
-   //       alert("Yra");
-      camera.translateOnAxis(yAxis*speed, -delta);
-      break;
-  }
-});
 
 
 
