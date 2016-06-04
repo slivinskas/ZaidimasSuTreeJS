@@ -122,13 +122,8 @@ var camera, scene, renderer;
 				raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
 				// floor
 
-                var loader = new THREE.TextureLoader();
+                var texture = new THREE.TextureLoader().load( "img/grass-free-texture.jpg" );
 
-
-
-                texture = THREE.ImageUtils.loadTexture('img/grass-free-texture.jpg', {}, function() {
-                    renderer.render(scene);
-                }),
 				geometry = new THREE.PlaneGeometry( 2000, 2000, 100, 100 );
 				geometry.rotateX( - Math.PI / 2 );
 				for ( var i = 0, l = geometry.vertices.length; i < l; i ++ ) {

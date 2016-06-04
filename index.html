@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html lang="lt">
-    <head>
-        <title>saskes</title>
-        <meta charset="utf-8">
-        <link type="text/css" href="style/style.css" rel="stylesheet">
-        <meta http-equiv="Content-Language" content="lt">
-    </head>
-    <body>
-       <div id="conteiner"></div>
-        <script src="js/main.js" type="application/javascript"></script>
-        <script type="application/javascript" src="js/three.min.js"></script>
-        <script type="application/javascript" src="js/boxes.js"></script>
-        <script type="application/javascript" src="js/moves.js"></script>
-    </body>
+<html lang="en">
+	<head>
+		<title>three.js - pointerlock controls</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="style/style.2.css">
+	</head>
+	<body>
+		<script src="js/three.min.js"></script>
+		<script src="js/PointerLockControls.js"></script>
+
+		<div id="blocker">
+
+			<div id="instructions">
+				<span style="font-size:40px">Click to play</span>
+				<br />
+				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+			</div>
+
+		</div>
+
+		<script type="application/javascript" src="js/main2.js"></script>
+		<script type="application/javascript" src="js/init.js"></script>
+		<script type="application/javascript" src="js/animate.js"></script>
+		<script type="application/javascript" src="js/minFunctions.js"></script>
+	</body>
 </html>
