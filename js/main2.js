@@ -1,5 +1,5 @@
 var camera, scene, renderer;
-var boxColors = [129146,7365362,2427964,16412016];
+var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
     mainColor = 0;
 			var geometry, material, mesh;
 			var controls;
@@ -120,7 +120,7 @@ var boxColors = [129146,7365362,2427964,16412016];
 
 
                //     console.log("\n Kamera: ");
-                  //  console.log(cameraInWorld);
+                  //  console.log(cameraInWorld); /**/
 
                     //======================= Collision END ======================================================
 
@@ -174,7 +174,7 @@ var boxColors = [129146,7365362,2427964,16412016];
                         mesh.scale.set( 10, 10, 10 );
                         mesh.position.y = 150;
                         mesh.position.x = 0;
-                        mesh.color = randomHex();
+                        mesh.material.color.setHex(boxColors[mainColor]);
                         scene.add(mesh);
                     });
 
@@ -185,10 +185,12 @@ var boxColors = [129146,7365362,2427964,16412016];
                 matOfBox[0] = new THREE.MeshBasicMaterial({
                     color: boxColors[0]
                 });
-                for(var colorNo = 1; colorNo < 3; colorNo++){
+
+
+                for(var colorNo = 1; colorNo < 4; colorNo++){
                     matOfBox[colorNo] = matOfBox[0].clone();
-                    matOfBox[colorNo].color = boxColors[colorNo];
-                }
+                    matOfBox[colorNo].color.setHex(boxColors[colorNo]);
+                }/**/
 
 
 				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
