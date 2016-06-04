@@ -38,12 +38,6 @@ function init() {
     }
 
 
-    camera.position.set(500,50,150);
-    camera.updateMatrixWorld(true);
-    mouseDir();
-    render();
-
-
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -60,19 +54,6 @@ function animate() {
 
     renderer.render(scene, camera);
 
-}
-
-function mouseDir () {
-    var bbox = canvas.getBoundingClientRect();
-    var mouse3D = new THREE.Vector3 (
-        ((currentMouseX - bbox.left) / bbox.width) * 2 - 1,
-        -((currnetMouseY - bbox.top) / bbox.height) * 2 + 1,
-        0.5
-    );
-
-    // perspective camera
-    var dir = mouse3D.unproject(camera).sub(camera.position).normalize();
-    scene.add(new THREE.ArrowHelper(dir, camera.position));     // draws arrow helper showing mouse direction
 }
 
 
