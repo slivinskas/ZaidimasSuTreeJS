@@ -33,3 +33,8 @@ html, body {
 				text-align: center;
 				cursor: pointer;
 			}
+
+#score{
+    position: absolute;
+    border: none;
+}

@@ -1,12 +1,15 @@
 var camera, scene, renderer;
 var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
-    mainColor = 0;
+    curentColor = 0;
 			var geometry, material, mesh;
 			var controls;
 			var objects = [];
 			var raycaster;
 			var blocker = document.getElementById( 'blocker' );
 			var instructions = document.getElementById( 'instructions' );
+            var score = document.getElementById("scoreSum");
+            var scoreSum = 0;
+            score.innerHTML = scoreSum.toString();
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 			if ( havePointerLock ) {
@@ -112,7 +115,13 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
                     var intersects = raycaster.intersectObjects( objects );
 
                     for ( var inter = 0; inter < intersects.length; inter++ ) {
-                        scene.remove( intersects[ inter ].object);
+                     //   alert(boxColors[curentColor]);
+                        if(boxColors[curentColor] == intersects[ inter ].object.material.color.getHexString ()){
+                            scene.remove( intersects[ inter ].object);
+                            curentColor = randomRange(0,3);
+                            var stabas = scene.getObjectByName( "stabas" );
+                            stabas.material.color.setHex(boxColors[curentColor]);
+                        }
                     }
 
                     renderer.render( scene, camera );
@@ -174,7 +183,8 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
                         mesh.scale.set( 10, 10, 10 );
                         mesh.position.y = 150;
                         mesh.position.x = 0;
-                        mesh.material.color.setHex(boxColors[mainColor]);
+                        mesh.material.color.setHex(boxColors[curentColor]);
+                        mesh.name = "stabas";
                         scene.add(mesh);
                     });
 
@@ -214,7 +224,7 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 
 				//
 				renderer = new THREE.WebGLRenderer();
-				renderer.setClearColor( 0xffffff );
+				renderer.setClearColor( 0x3232FF,2 );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
