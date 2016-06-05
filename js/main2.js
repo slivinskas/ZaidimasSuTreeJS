@@ -116,8 +116,13 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 
                     for ( var inter = 0; inter < intersects.length; inter++ ) {
                      //   alert(boxColors[curentColor]);
-                        if(boxColors[curentColor] == intersects[ inter ].object.material.color.getHexString ()){
+                        if(boxColors[curentColor] == intersects[ inter ].object.material.color.getHex ()){
                             scene.remove( intersects[ inter ].object);
+                            scoreSum  += 100;
+                            score.innerHTML = "Pavyko!";
+                            setTimeout(function(){
+                                score.innerHTML = scoreSum.toString();
+                            }, 2000);
                             curentColor = randomRange(0,3);
                             var stabas = scene.getObjectByName( "stabas" );
                             stabas.material.color.setHex(boxColors[curentColor]);
