@@ -42,3 +42,13 @@ function randomRange(min, max) {
 function randomHex(){
     return Math.floor(Math.random()*16777215);/*.toString(16);*/
 };
+
+
+function aud_play_pause(play) {
+  var myAudio = document.getElementById("gameMusic");
+    if(play == "play"){
+        myAudio.play();
+    }else{
+        myAudio.pause();
+    }
+}

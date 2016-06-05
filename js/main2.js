@@ -9,6 +9,8 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 			var instructions = document.getElementById( 'instructions' );
             var score = document.getElementById("scoreSum");
             var scoreSum = 0;
+            var rings = 80;
+            var timer = new Timer();
             score.innerHTML = scoreSum.toString();
 			// http://www.html5rocks.com/en/tutorials/pointerlock/intro/
 			var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
@@ -19,12 +21,13 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 						controlsEnabled = true;
 						controls.enabled = true;
 						blocker.style.display = 'none';
-
+                        aud_play_pause("play");
                         var display = document.querySelector('#time');
-                        if(!startTimer(60, display)){
-                            alert("Žaidimo pabaiga");
+                        if(!timer.isRun()){
+                            timer.startTimer(15, display);
                         }
 					} else {
+                        aud_play_pause();
 						controls.enabled = false;
 						blocker.style.display = '-webkit-box';
 						blocker.style.display = '-moz-box';
@@ -124,9 +127,12 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
                         if(boxColors[curentColor] == intersects[ inter ].object.material.color.getHex ()){
                             scene.remove( intersects[ inter ].object);
                             scoreSum  += 100;
+                            var catched = document.getElementById("gameMusicTakeBox");
+                          //  catched.play();
                             score.innerHTML = "Pavyko!";
                             setTimeout(function(){
                                 score.innerHTML = scoreSum.toString();
+                             //   catched.pause();
                             }, 2000);
                             curentColor = randomRange(0,3);
                             var stabas = scene.getObjectByName( "stabas" );
@@ -201,9 +207,10 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 
 
 
-				geometry = new THREE.BoxGeometry( 20, 20, 20 );
+				geometry = new THREE.TorusBufferGeometry( 10, 3, 16, 100 );
 
                 var matOfBox = Array();
+
 
                 matOfBox[0] = new THREE.MeshBasicMaterial({
                     color: boxColors[0]
@@ -215,13 +222,13 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
                     matOfBox[colorNo].color.setHex(boxColors[colorNo]);
                 }/**/
 
-
+/*
 				for ( var i = 0, l = geometry.faces.length; i < l; i ++ ) {
 					var face = geometry.faces[ i ];
-				}
+				}*/
 
 
-				for ( var i = 0; i < 100; i ++ ) {
+				for ( var i = 0; i < rings; i ++ ) {
 				//	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
                     var mesh = new THREE.Mesh( geometry, matOfBox[randomRange(0,3)] );
 					mesh.position.x = Math.floor( Math.random() * 50 - 10 ) * 40;
