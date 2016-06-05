@@ -38,3 +38,10 @@ html, body {
     position: absolute;
     border: none;
 }
+
+#time{
+   position: absolute;
+    right: 0;
+    font-size: 40px;
+    font-weight: 700;
+}

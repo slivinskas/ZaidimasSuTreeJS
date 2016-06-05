@@ -19,6 +19,11 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 						controlsEnabled = true;
 						controls.enabled = true;
 						blocker.style.display = 'none';
+
+                        var display = document.querySelector('#time');
+                        if(!startTimer(60, display)){
+                            alert("Žaidimo pabaiga");
+                        }
 					} else {
 						controls.enabled = false;
 						blocker.style.display = '-webkit-box';
@@ -192,6 +197,9 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
                         mesh.name = "stabas";
                         scene.add(mesh);
                     });
+               // var kl =loader.clone();
+
+
 
 				geometry = new THREE.BoxGeometry( 20, 20, 20 );
 
@@ -213,12 +221,12 @@ var boxColors = [0xcc0000,0x2ca109,0x0f2e8d,0xff6600];
 				}
 
 
-				for ( var i = 0; i < 40; i ++ ) {
+				for ( var i = 0; i < 100; i ++ ) {
 				//	material = new THREE.MeshPhongMaterial( { specular: 0xffffff, shading: THREE.FlatShading, vertexColors: THREE.VertexColors } );
                     var mesh = new THREE.Mesh( geometry, matOfBox[randomRange(0,3)] );
-					mesh.position.x = Math.floor( Math.random() * 40 - 10 ) * 20;
+					mesh.position.x = Math.floor( Math.random() * 50 - 10 ) * 40;
 					mesh.position.y = 10; //Math.floor( Math.random() * 20 ) * 20 + 10;
-					mesh.position.z = Math.floor( Math.random() * 40 - 10 ) * 20;
+					mesh.position.z = Math.floor( Math.random() * 50 - 10 ) * 40;
                     mesh.rotation.y = -Math.PI/5;
 					scene.add( mesh );
 			//		material.color.setHSL( Math.random() * 0.2 + 0.5, 0.75, Math.random() * 0.25 + 0.75 );
